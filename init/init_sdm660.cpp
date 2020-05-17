@@ -84,8 +84,42 @@ void check_device()
     }
 }
 
+void property_override(char const prop[], char const value[])
+{
+    prop_info *pi;
+
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+}
+
+void property_override_dual(char const system_prop[], char const vendor_prop[],
+    char const value[])
+{
+    property_override(system_prop, value);
+    property_override(vendor_prop, value);
+}
+
+void set_model_whyred()
+{
+    std::ifstream fin("/proc/cmdline");
+    std::string buf;
+
+    std::getline(fin, buf);
+    fin.close();
+
+    if (buf.find("whyred") == std::string::npos) return; 
+    if (buf.find("India") != std::string::npos) {
+        property_override_dual("ro.product.model", "ro.vendor.product.model", "Redmi Note 5 Pro");
+    } 
+}
+
 void vendor_load_properties()
 {
+    set_model_whyred(); 
+        
     check_device();
 
     property_set("dalvik.vm.heapstartsize", heapstartsize);
