@@ -2622,9 +2622,14 @@ case "$target" in
                 echo 400 > $memlat/mem_latency/ratio_ceil
             done
             echo "cpufreq" > /sys/class/devfreq/soc:qcom,mincpubw/governor
+        esac
 
-            # Start cdsprpcd only for sdm660 and disable for sdm630
-            start vendor.cdsprpcd
+            # Apply settings for sdm660 only
+            case "$soc_id" in
+                "317" | "324" | "325" | "326"  )
+                # Start cdsprpcd only for sdm660 and disable for sdm630 and sdm636
+                start vendor.cdsprpcd
+            esac
 
             # Start Host based Touch processing
                 case "$hw_platform" in
