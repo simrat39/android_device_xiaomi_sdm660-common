@@ -1,0 +1,16 @@
+cc_library_shared {
+    name: "gnss_shim",
+    proprietary: true,
+    defaults: ["hidl_defaults"],
+    srcs: [
+        "gnss_shim.cpp",
+    ],
+    cflags: [
+        "-Werror",
+        "-Wextra",
+        "-Wall",
+    ],
+    shared_libs: [
+        "libutils",
+    ],
+}

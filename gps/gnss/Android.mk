@@ -10,6 +10,7 @@ LOCAL_VENDOR_MODULE := true
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_SHARED_LIBRARIES := \
+	gnss_shim \
     libutils \
     libcutils \
     libdl \

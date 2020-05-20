@@ -32,6 +32,7 @@ LOCAL_HEADER_LIBRARIES := \
     liblocbatterylistener_headers
 
 LOCAL_SHARED_LIBRARIES := \
+	gnss_shim \
     liblog \
     libhidlbase \
     libhidltransport \
